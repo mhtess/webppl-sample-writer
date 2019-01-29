@@ -10,14 +10,12 @@ function callback(path) {
   };
 
   return {
-    setup() {
-      handle = fs.openSync(path, 'ax');
-      append('[');
-    },
-    iteration(trace) {
-      append(JSON.stringify({value: trace.value, score: trace.score}));
-    },
-    initialize() {
+    sample(obj) {
+      if (handle === undefined) {
+        handle = fs.openSync(path, 'ax');
+        append('[');
+      }
+      append(JSON.stringify({value: obj.value, score: obj.score}));
     },
     finish() {
       append(']');
