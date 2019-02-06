@@ -4,6 +4,7 @@ var fs = require('fs');
 
 function callback(path) {
   var handle;
+  var sampleCount = 0;
 
   function append(data) {
     fs.appendFileSync(handle, data);
@@ -16,6 +17,7 @@ function callback(path) {
         append('[');
       }
       append(JSON.stringify({value: obj.value, score: obj.score}));
+      sampleCount += 1;
     },
     finish() {
       append(']');
