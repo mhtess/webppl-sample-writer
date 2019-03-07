@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-function streamQueryCSV(path) {
+function streamQueryCSV(path, header) {
   var handle;
 
   function append(data) {
@@ -13,7 +13,7 @@ function streamQueryCSV(path) {
     sample(obj) {
       if (handle === undefined) {
         handle = fs.openSync(path, 'ax');
-        append('parameter, value, score\n');
+        append(header + '\n');
         // append('[');
       }
       _.map(_.keys(obj.value), function(v){
