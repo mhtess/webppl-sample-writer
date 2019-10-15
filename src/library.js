@@ -4,6 +4,7 @@ var fs = require('fs');
 
 function streamQueryCSV(path, header) {
   var handle;
+  var sampleCount = 0;
 
   function append(data) {
     fs.appendFileSync(handle, data);
@@ -17,8 +18,9 @@ function streamQueryCSV(path, header) {
         // append('[');
       }
       _.map(_.keys(obj.value), function(v){
-        append(v + ',' + obj.value[v] + ',' + obj.score + '\n');
+        append(sampleCount + ','+ v + ',' + obj.value[v] + ',' + obj.score + '\n');
       })
+      sampleCount += 1;
       // append(JSON.stringify({value: obj.value, score: obj.score}));
     },
     finish() {
